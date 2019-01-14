@@ -35,9 +35,9 @@ class session {
     public function setUser($user){
         global $db;
         date_default_timezone_set('Asia/Kolkata');
-        $user['date'] = date('Y-m-d h:i:s', time());
+        $user['date'] = date('Y-m-d H:i:s', time());
         $sesskey=md5(json_encode($user));
-        $db->insert("session",Array('sesskey'=>$sesskey,'userinfo'=>json_encode($user),"validupto"=>date('Y-m-d h:i:s',strtotime('+1 hour', time()))));
+        $db->insert("session",Array('sesskey'=>$sesskey,'userinfo'=>json_encode($user),"validupto"=>date('Y-m-d H:i:s',strtotime('+1 hour', time()))));
         return $sesskey;
     }
 }

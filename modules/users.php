@@ -20,7 +20,7 @@ if(is_array($user)){
                 break;
 
                 case 'add':
-					$db->mode(1);
+                	$db->mode(1);
                     date_default_timezone_set('Asia/Kolkata');
                     $r=$db->resa($_REQUEST);
                     $newuser=[
@@ -28,7 +28,7 @@ if(is_array($user)){
                         'name'=>$r['name'],
                         'designation'=>$r['designation'],
                         'department'=>1,
-                        'role'=>1,
+                        'role'=>2,
                         'active'=>1,
                         'passwd'=>md5($r['passwd']),
                         'added_by'=>$user['id'],
@@ -49,28 +49,51 @@ if(is_array($user)){
                     $response['dbresp']=$db->select("user","count(*) as usrs","where loginid='{$newuser['loginid']}'");
                     $response['new-user']=$newuser;
                     $response['status']=$status;
-                 break;
+                break;
                  
-                 case 'block':
-					$db->mode(1);
-					$r=$db->resa($_REQUEST);
+                case 'block':
+                    $db->mode(1);
+                    $r=$db->resa($_REQUEST);
                     $status=$response['dbresp']=$db->update("user",Array('active'=>false),"where loginid='{$r['loginid']}'");
                     $response['status']=$status;
-                 break;
+                break;
                  
-                 case 'active':
+                case 'active':
 					$db->mode(1);
 					$r=$db->resa($_REQUEST);
                     $status=$response['dbresp']=$db->update("user",Array('active'=>true),"where loginid='{$r['loginid']}'");
                     $response['status']=$status;
-                 break;
+                break;
                  
-                 case 'changePasswd':
+                case 'changePasswd':
 					$db->mode(1);
 					$r=$db->resa($_REQUEST);
 					$status=$response['dbresp']=$db->update("user",Array('passwd'=>$r['passwd']),"where loginid='{$r['loginid']}'");
                     $response['status']=$status;
-                 break;
+                break;
+
+                case 'changeRole':
+                    $db->mode(1);
+                    $r=$db->resa($_REQUEST);
+                    $status=$response['dbresp']=$db->update("user",Array('role'=>$r['role']),"where loginid='{$r['loginid']}'");
+                    $response['status']=$status;
+                break;
+
+                case 'updateUserInfo':
+                    $db->mode(1);
+                    date_default_timezone_set('Asia/Kolkata');
+                    $r=$db->resa($_REQUEST);
+                    $newuser=[
+                        'loginid'=>$r['loginid'],
+                        'name'=>$r['name'],
+                        'designation'=>$r['designation'],
+                        'department'=>1,
+                        'role'=>2,
+                        'active'=>1
+                    ];
+                    $status=$db->update("user",$newuser,"where loginid='{$newuser['loginid']}'");
+                    $response['status']=$status;
+                break;
                 }
                 break;
         default:

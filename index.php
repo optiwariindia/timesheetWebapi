@@ -1,4 +1,5 @@
 <?php
+include 'conf.php';
 $response['request']=$_REQUEST;
 
 switch($_REQUEST['module']??''){
@@ -17,3 +18,4 @@ switch($_REQUEST['module']??''){
 if(is_array($user)){
     $response['login']=$user;
 }
+include 'render.php';
