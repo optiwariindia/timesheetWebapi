@@ -11,6 +11,9 @@ switch($_REQUEST['module']??''){
     case 'users':
         include $path['modules']."users.php";
         break;
+    case 'reports':
+        include $path['modules']."reports.php";
+        break;
     default:
         
         break;

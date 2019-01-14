@@ -54,28 +54,28 @@ if(is_array($user)){
                 case 'block':
                     $db->mode(1);
                     $r=$db->resa($_REQUEST);
-                    $status=$response['dbresp']=$db->update("user",Array('active'=>false),"where loginid='{$r['loginid']}'");
+                    $status=$response['dbresp']=$db->update("user",Array('active'=>0),"where loginid='{$r['loginid']}'");
                     $response['status']=$status;
                 break;
                  
                 case 'active':
 					$db->mode(1);
 					$r=$db->resa($_REQUEST);
-                    $status=$response['dbresp']=$db->update("user",Array('active'=>true),"where loginid='{$r['loginid']}'");
+                    $status=$response['dbresp']=$db->update("user",Array('active'=>1),"where loginid='{$r['loginid']}'");
                     $response['status']=$status;
                 break;
                  
                 case 'changePasswd':
 					$db->mode(1);
 					$r=$db->resa($_REQUEST);
-					$status=$response['dbresp']=$db->update("user",Array('passwd'=>$r['passwd']),"where loginid='{$r['loginid']}'");
+					$status=$response['dbresp']=$db->update("user",Array('passwd'=>md5($r['passwd'])),"where loginid='{$r['loginid']}'");
                     $response['status']=$status;
                 break;
 
                 case 'changeRole':
                     $db->mode(1);
                     $r=$db->resa($_REQUEST);
-                    $status=$response['dbresp']=$db->update("user",Array('role'=>$r['role']),"where loginid='{$r['loginid']}'");
+                    $status=$db->update("user",Array('role'=>$r['role']),"where loginid='{$r['loginid']}'");
                     $response['status']=$status;
                 break;
 

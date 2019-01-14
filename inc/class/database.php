@@ -80,7 +80,9 @@ class database{
             $sql="update `{$table}` set ";
             $fld=Array();
             foreach($data as $key=>$value){
-                    $fld[]=(is_numeric($value))?" $key={$value}":(($key=="pass")||($key=="passwd"))?" $key=md5('{$value}')":" $key='{$value}'";		}
+                    $fld[]=" $key='{$value}'";
+                }
+
             $sql.=$fld[0];
             for($i=1;$i<count($fld);$i++)$sql.=" , ".$fld[$i];
             $sql.=" ".$where;
